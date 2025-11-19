@@ -30,30 +30,6 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
-        .counter-section {
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 20px;
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
-        }
-
-        .counter-text {
-            color: white;
-            font-size: 1em;
-            margin-bottom: 8px;
-            opacity: 0.95;
-        }
-
-        .counter-number {
-            color: white;
-            font-size: 3em;
-            font-weight: bold;
-            font-family: 'Courier New', monospace;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
         h1 {
             color: #764ba2;
             text-align: center;
@@ -291,11 +267,6 @@
     <div class="container">
         <h1>💜 Purple for Women's Rights</h1>
         
-        <div class="counter-section">
-            <div class="counter-text">People standing with us:</div>
-            <div class="counter-number" id="counterDisplay">Loading...</div>
-        </div>
-        
         <div class="info-section">
             <h2>Why Purple?</h2>
             <p>Purple has long been associated with the women's rights movement, representing dignity, justice, and equality. By changing your profile picture to purple, you're showing solidarity with women's rights and raising awareness for gender equality worldwide.</p>
@@ -357,52 +328,8 @@
         const intensitySlider = document.getElementById('intensitySlider');
         const intensityValue = document.getElementById('intensityValue');
         const uploadArea = document.getElementById('uploadArea');
-        const counterDisplay = document.getElementById('counterDisplay');
         
         let originalImage = null;
-        let hasUserBeenCounted = false;
-
-        // Initialize and load counter
-        async function initCounter() {
-            try {
-                const result = await window.storage.get('purple-counter', true);
-                const currentCount = result ? parseInt(result.value) : 0;
-                updateCounterDisplay(currentCount);
-            } catch (error) {
-                // Counter doesn't exist yet, initialize it
-                try {
-                    await window.storage.set('purple-counter', '0', true);
-                    updateCounterDisplay(0);
-                } catch (err) {
-                    console.error('Error initializing counter:', err);
-                    counterDisplay.textContent = '---';
-                }
-            }
-        }
-
-        // Increment counter when user downloads
-        async function incrementCounter() {
-            if (hasUserBeenCounted) return; // Only count each user once per session
-            
-            try {
-                const result = await window.storage.get('purple-counter', true);
-                const currentCount = result ? parseInt(result.value) : 0;
-                const newCount = currentCount + 1;
-                
-                await window.storage.set('purple-counter', newCount.toString(), true);
-                updateCounterDisplay(newCount);
-                hasUserBeenCounted = true;
-            } catch (error) {
-                console.error('Error incrementing counter:', error);
-            }
-        }
-
-        function updateCounterDisplay(count) {
-            counterDisplay.textContent = count.toLocaleString();
-        }
-
-        // Initialize counter on page load
-        initCounter();
 
         // Show tips on first load
         setTimeout(() => {
@@ -496,9 +423,6 @@
             link.download = 'purple-profile-picture.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
-            
-            // Increment counter when user downloads
-            incrementCounter();
         });
 
         resetBtn.addEventListener('click', function() {
