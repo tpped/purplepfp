@@ -58,102 +58,46 @@
         }
 
         .upload-section {
+            text-align: center;
             margin-bottom: 30px;
         }
 
-        .option-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px;
-            background: #e0e0e0;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: #764ba2;
-            color: white;
-        }
-
-        .tab-btn:hover {
-            transform: translateY(-2px);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .tiktok-input-group {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .tiktok-input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-        }
-
-        .tiktok-input:focus {
-            outline: none;
-            border-color: #764ba2;
-        }
-
-        .fetch-btn {
-            background: #764ba2;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
+        .upload-area {
+            border: 3px dashed #764ba2;
+            border-radius: 15px;
+            padding: 40px 20px;
             cursor: pointer;
             transition: all 0.3s;
+            background: #fafafa;
         }
 
-        .fetch-btn:hover {
-            background: #5a3680;
-            transform: translateY(-2px);
+        .upload-area:hover {
+            background: #f0e8ff;
+            border-color: #5a3680;
         }
 
-        .fetch-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
+        .upload-area.dragover {
+            background: #f0e8ff;
+            border-color: #5a3680;
+            transform: scale(1.02);
         }
 
-        .upload-label {
-            background: #764ba2;
-            color: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: inline-block;
-            text-align: center;
-            width: 100%;
+        .upload-icon {
+            font-size: 3em;
+            color: #764ba2;
+            margin-bottom: 10px;
         }
 
-        .upload-label:hover {
-            background: #5a3680;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(118, 75, 162, 0.4);
+        .upload-text {
+            color: #764ba2;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .upload-subtext {
+            color: #888;
+            font-size: 0.9em;
         }
 
         #fileInput {
@@ -216,22 +160,68 @@
             border: none;
         }
 
-        .download-btn {
-            background: #28a745;
-            color: white;
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .download-btn, .reset-btn {
+            flex: 1;
             padding: 15px 30px;
             border: none;
             border-radius: 10px;
             font-size: 1.1em;
             cursor: pointer;
-            width: 100%;
             transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .download-btn {
+            background: #28a745;
+            color: white;
         }
 
         .download-btn:hover {
             background: #218838;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .reset-btn {
+            background: #6c757d;
+            color: white;
+        }
+
+        .reset-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        .tips-section {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #2196F3;
+            display: none;
+        }
+
+        .tips-section h3 {
+            color: #1976D2;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .tips-section ul {
+            color: #555;
+            padding-left: 20px;
+        }
+
+        .tips-section li {
+            margin-bottom: 5px;
+            line-height: 1.5;
         }
 
         .donation-section {
@@ -271,23 +261,6 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
         }
-
-        .error-message {
-            background: #f8d7da;
-            color: #721c24;
-            padding: 12px;
-            border-radius: 8px;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .loading {
-            text-align: center;
-            color: #764ba2;
-            font-weight: 600;
-            margin-top: 10px;
-            display: none;
-        }
     </style>
 </head>
 <body>
@@ -301,24 +274,23 @@
         </div>
 
         <div class="upload-section">
-            <div class="option-tabs">
-                <button class="tab-btn active" data-tab="tiktok">TikTok Username</button>
-                <button class="tab-btn" data-tab="upload">Upload Image</button>
-            </div>
-
-            <div id="tiktok-tab" class="tab-content active">
-                <div class="tiktok-input-group">
-                    <input type="text" id="tiktokUsername" class="tiktok-input" placeholder="Enter TikTok username (e.g., @username)">
-                    <button id="fetchBtn" class="fetch-btn">Fetch</button>
+            <label for="fileInput">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">📸</div>
+                    <div class="upload-text">Click to Upload or Drag & Drop</div>
+                    <div class="upload-subtext">Your profile picture (JPG, PNG, GIF)</div>
                 </div>
-                <div class="loading" id="loading">Loading profile picture...</div>
-                <div class="error-message" id="errorMessage"></div>
-            </div>
+            </label>
+            <input type="file" id="fileInput" accept="image/*">
+        </div>
 
-            <div id="upload-tab" class="tab-content">
-                <label for="fileInput" class="upload-label">Choose Image File</label>
-                <input type="file" id="fileInput" accept="image/*">
-            </div>
+        <div class="tips-section" id="tipsSection">
+            <h3>💡 How to Get Your Profile Picture:</h3>
+            <ul>
+                <li><strong>TikTok:</strong> Go to your profile → tap profile picture → screenshot or save image</li>
+                <li><strong>Instagram:</strong> Open profile → tap profile picture → take screenshot</li>
+                <li><strong>Facebook/Twitter:</strong> Right-click profile picture → "Save image as"</li>
+            </ul>
         </div>
 
         <div class="preview-section" id="previewSection">
@@ -331,7 +303,10 @@
                 <input type="range" id="intensitySlider" min="20" max="80" value="50">
             </div>
 
-            <button class="download-btn" id="downloadBtn">Download Purple Picture</button>
+            <div class="button-group">
+                <button class="download-btn" id="downloadBtn">Download Purple Picture</button>
+                <button class="reset-btn" id="resetBtn">Upload New Image</button>
+            </div>
         </div>
 
         <div class="donation-section">
@@ -346,116 +321,63 @@
         const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
         const previewSection = document.getElementById('previewSection');
+        const uploadSection = document.querySelector('.upload-section');
+        const tipsSection = document.getElementById('tipsSection');
         const downloadBtn = document.getElementById('downloadBtn');
+        const resetBtn = document.getElementById('resetBtn');
         const intensitySlider = document.getElementById('intensitySlider');
         const intensityValue = document.getElementById('intensityValue');
-        const tiktokUsername = document.getElementById('tiktokUsername');
-        const fetchBtn = document.getElementById('fetchBtn');
-        const loading = document.getElementById('loading');
-        const errorMessage = document.getElementById('errorMessage');
+        const uploadArea = document.getElementById('uploadArea');
         
         let originalImage = null;
 
-        // Tab switching
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                this.classList.add('active');
-                document.getElementById(this.dataset.tab + '-tab').classList.add('active');
-                
-                errorMessage.style.display = 'none';
-            });
+        // Show tips on first load
+        setTimeout(() => {
+            tipsSection.style.display = 'block';
+        }, 500);
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
         });
 
-        // Fetch TikTok profile picture
-        fetchBtn.addEventListener('click', async function() {
-            let username = tiktokUsername.value.trim();
-            if (!username) {
-                showError('Please enter a TikTok username');
-                return;
-            }
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
 
-            // Remove @ if user included it
-            username = username.replace('@', '');
-
-            loading.style.display = 'block';
-            errorMessage.style.display = 'none';
-            fetchBtn.disabled = true;
-
-            try {
-                // Using TikTok's public API endpoint
-                const response = await fetch(`https://www.tiktok.com/@${username}`, {
-                    method: 'GET',
-                    headers: {
-                        'User-Agent': 'Mozilla/5.0'
-                    }
-                });
-
-                if (!response.ok) {
-                    throw new Error('User not found');
-                }
-
-                const html = await response.text();
-                
-                // Extract profile picture URL from HTML
-                const match = html.match(/"avatarLarger":"([^"]+)"/);
-                
-                if (!match) {
-                    throw new Error('Could not find profile picture');
-                }
-
-                const avatarUrl = match[1].replace(/\\u002F/g, '/');
-                
-                // Load the image
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                img.onload = function() {
-                    originalImage = img;
-                    applyPurpleOverlay();
-                    previewSection.style.display = 'block';
-                    loading.style.display = 'none';
-                    fetchBtn.disabled = false;
-                };
-                img.onerror = function() {
-                    showError('Could not load profile picture. Try uploading an image instead.');
-                    loading.style.display = 'none';
-                    fetchBtn.disabled = false;
-                };
-                
-                // Use a CORS proxy to load the image
-                img.src = `https://cors-anywhere.herokuapp.com/${avatarUrl}`;
-                
-            } catch (error) {
-                showError('Could not fetch TikTok profile picture. Please try uploading an image instead.');
-                loading.style.display = 'none';
-                fetchBtn.disabled = false;
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            
+            const file = e.dataTransfer.files[0];
+            if (file && file.type.startsWith('image/')) {
+                handleImageFile(file);
             }
         });
 
-        function showError(message) {
-            errorMessage.textContent = message;
-            errorMessage.style.display = 'block';
-        }
-
-        // File upload
         fileInput.addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = new Image();
-                    img.onload = function() {
-                        originalImage = img;
-                        applyPurpleOverlay();
-                        previewSection.style.display = 'block';
-                    };
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
+                handleImageFile(file);
             }
         });
+
+        function handleImageFile(file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const img = new Image();
+                img.onload = function() {
+                    originalImage = img;
+                    applyPurpleOverlay();
+                    uploadSection.style.display = 'none';
+                    tipsSection.style.display = 'none';
+                    previewSection.style.display = 'block';
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
 
         intensitySlider.addEventListener('input', function() {
             intensityValue.textContent = this.value + '%';
@@ -501,6 +423,14 @@
             link.download = 'purple-profile-picture.png';
             link.href = canvas.toDataURL('image/png');
             link.click();
+        });
+
+        resetBtn.addEventListener('click', function() {
+            previewSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            tipsSection.style.display = 'block';
+            fileInput.value = '';
+            originalImage = null;
         });
     </script>
 </body>
